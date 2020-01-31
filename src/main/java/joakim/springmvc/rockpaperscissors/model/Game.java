@@ -7,14 +7,12 @@ import java.util.UUID;
 
 public class Game {
 
-    private int knas;
     private Long gameId;
     private Player firstPlayer;
     private Player secondPlayer;
 
     public Game() {
         Long generatedLong = new Random().nextLong();
-        knas = 5;
         this.gameId = generatedLong;
     }
 
@@ -37,5 +35,16 @@ public class Game {
 
     public Player getSecondPlayer() {
         return secondPlayer;
+    }
+
+    public Player getPlayer(String name) {
+        if(name == firstPlayer.getName()) {
+            return firstPlayer;
+        }
+        else if(name == secondPlayer.getName()) {
+            return secondPlayer;
+        }
+        //ILLEGAL EXPRESSION
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package joakim.springmvc.rockpaperscissors.state;
 
 import joakim.springmvc.rockpaperscissors.model.Game;
+import joakim.springmvc.rockpaperscissors.model.Player;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -23,7 +24,11 @@ public class GameState {
     }
 
     public Game getGame(Long id) {
+        return games.get(id);
+    }
+
+    public Player getPlayer(Long id, String name) {
         Game game = games.get(id);
-        return game;
+        return game.getPlayer(name);
     }
 }

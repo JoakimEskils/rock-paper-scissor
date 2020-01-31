@@ -47,5 +47,13 @@ public class GameController {
         return game.getSecondPlayer();
     }
 
-
+    @RequestMapping(value = "/api/games/{id}/move", method = RequestMethod.POST)
+    @ResponseBody
+    public Player move(@RequestBody String name, @RequestBody String move, @PathVariable Long id) {
+        Player player = gameState.getPlayer(id, name); //få ut om det är first eller sndplayer
+        //ELLER HA choice i playerclassen, och gör så JSON inte printar ut denna under första gången iaf
+        player.makeChoice(move);
+        GameLogic.set//fst eller snd PLAYERs choice.
+        return
+    }
 }
