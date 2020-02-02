@@ -38,10 +38,10 @@ public class Game {
     }
 
     public Player getPlayer(String name) {
-        if(name == firstPlayer.getName()) {
+        if(name.equals(firstPlayer.getName())) {
             return firstPlayer;
         }
-        else if(name == secondPlayer.getName()) {
+        else if(name.equals(secondPlayer.getName())) {
             return secondPlayer;
         }
         //ILLEGAL EXPRESSION

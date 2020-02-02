@@ -29,6 +29,8 @@ public class GameState {
 
     public Player getPlayer(Long id, String name) {
         Game game = games.get(id);
+        System.out.println("game");
+        System.out.println(game);
         return game.getPlayer(name);
     }
 }

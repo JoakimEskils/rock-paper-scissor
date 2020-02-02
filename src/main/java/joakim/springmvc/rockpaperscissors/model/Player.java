@@ -1,8 +1,10 @@
 package joakim.springmvc.rockpaperscissors.model;
 
+import joakim.springmvc.rockpaperscissors.enums.Move;
+
 public class Player {
     private String name;
-    private Choice choice;
+    private Move move;
 
     public Player(String name) {
         this.name = name;
@@ -12,7 +14,14 @@ public class Player {
         return name;
     }
 
-    public makeMove(String move) {
-        this.choice = move;
+    public void setMove(Move move) {
+        System.out.println("hmmmmmmmakiojasiofj");
+        System.out.println(move);
+        this.move = move;
+        System.out.println(move);
+    }
+
+    public Move getMove() {
+        return move;
     }
 }
