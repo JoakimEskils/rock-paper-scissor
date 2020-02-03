@@ -1,5 +1,6 @@
 package joakim.springmvc.rockpaperscissors.state;
 
+import joakim.springmvc.rockpaperscissors.enums.Result;
 import joakim.springmvc.rockpaperscissors.model.Game;
 import joakim.springmvc.rockpaperscissors.model.Player;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.List;
 public class GameState {
     private int text;
     private HashMap<Long, Game> games = new HashMap<Long, Game>();
+    private Result result;
 
     public GameState() {
         this.text = 505;

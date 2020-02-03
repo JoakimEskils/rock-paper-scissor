@@ -2,13 +2,16 @@ package joakim.springmvc.rockpaperscissors.state;
 
 import joakim.springmvc.rockpaperscissors.enums.Move;
 import joakim.springmvc.rockpaperscissors.enums.Result;
+import joakim.springmvc.rockpaperscissors.model.Game;
 import joakim.springmvc.rockpaperscissors.model.Player;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GameLogic {
-    Player fstPlayer;
-    Player sndPlayer;
+    private Player fstPlayer;
+    private Player sndPlayer;
+    //private Game game;
+    private Result result;
 
     public GameLogic() {
         this.fstPlayer = null;
@@ -27,6 +30,10 @@ public class GameLogic {
         return fstPlayer;
     }
 
+    public Player getSndPlayer() {
+        return sndPlayer;
+    }
+
     public Boolean hasTwoPlayers() {
         if(this.fstPlayer != null && this.sndPlayer != null) {
             return true;
@@ -35,7 +42,7 @@ public class GameLogic {
     }
 
     public Result startGame() {
-        Result result = Result.Draw;
+        this.result = Result.Draw;
 
         Move fstMove = fstPlayer.getMove();
         Move sndMove = sndPlayer.getMove();
@@ -47,6 +54,10 @@ public class GameLogic {
             result = result.SndPlayerWin;
         }
 
+        return result;
+    }
+
+    public Result getResult() {
         return result;
     }
 }

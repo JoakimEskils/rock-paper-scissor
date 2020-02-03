@@ -1,6 +1,7 @@
 package joakim.springmvc.rockpaperscissors.controller;
 
 import joakim.springmvc.rockpaperscissors.enums.Move;
+import joakim.springmvc.rockpaperscissors.enums.Result;
 import joakim.springmvc.rockpaperscissors.model.Game;
 import joakim.springmvc.rockpaperscissors.model.Player;
 import joakim.springmvc.rockpaperscissors.state.GameLogic;
@@ -42,9 +43,9 @@ public class GameController {
 
     @RequestMapping(value = "/api/games/{id}")
     @ResponseBody
-    public Game getState(@PathVariable Long id) {
-        Game game = gameState.getGame(id);
-        return game;
+    public Result getState(@PathVariable Long id) {
+        //Game game = gameState.getGame(id);
+        return this.gameLogic.getResult();
     }
 
     @RequestMapping(value = "/api/games/{id}/join", method = RequestMethod.POST)
@@ -63,33 +64,24 @@ public class GameController {
 
         Move move = Move.valueOf(playerParam.get("move"));
 
-
-        System.out.println("kmr iaf hit");
         Player player = gameState.getPlayer(id, name); //få ut om det är first eller sndplayer
 
-
-        System.out.println("kmr iaf hit!!!!!!");
-        System.out.println(player);
         player.setMove(move);
 
-        System.out.println("crash");
-        System.out.println(playerParam.get("name"));
-        System.out.println(move);
-
         //ändra gamelogic att ta in move ist?
-        System.out.println("crash0");
         if(gameLogic.getFstPlayer() == null) {
-            System.out.println("crash1");
-            gameLogic.setSndPlayer(player);
-        }
-        else {
-            System.out.println("crash2");
             gameLogic.setFstPlayer(player);
         }
-        System.out.println("crash2.5");
+        else if(gameLogic.getSndPlayer() == null) {
+            gameLogic.setSndPlayer(player);
+        }
+        System.out.println("knasus");
+        System.out.println(gameLogic.getFstPlayer());
+        System.out.println(gameLogic.getSndPlayer());
+
         if(gameLogic.hasTwoPlayers()) {
-            System.out.println("crash3");
             gameLogic.startGame();
+            System.out.println("km hit");
         }
         return player;
     }
