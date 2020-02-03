@@ -6,58 +6,49 @@ import joakim.springmvc.rockpaperscissors.model.Game;
 import joakim.springmvc.rockpaperscissors.model.Player;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class GameLogic {
     private Player fstPlayer;
     private Player sndPlayer;
-    //private Game game;
-    private Result result;
+    private Game game;
+    //private Result result;
 
-    public GameLogic() {
-        this.fstPlayer = null;
-        this.sndPlayer = null;
-    }
-
-    public void setFstPlayer(Player fstPlayer) {
-        this.fstPlayer = fstPlayer;
-    }
-
-    public void setSndPlayer(Player sndPlayer) {
-        this.sndPlayer = sndPlayer;
-    }
-
-    public Player getFstPlayer() {
-        return fstPlayer;
-    }
-
-    public Player getSndPlayer() {
-        return sndPlayer;
-    }
-
-    public Boolean hasTwoPlayers() {
-        if(this.fstPlayer != null && this.sndPlayer != null) {
-            return true;
-        }
-        return false;
+    public GameLogic(Game game) {
+        this.fstPlayer = game.getFirstPlayer();
+        this.sndPlayer = game.getSecondPlayer();
+        this.game = game;
     }
 
     public Result startGame() {
-        this.result = Result.Draw;
 
         Move fstMove = fstPlayer.getMove();
         Move sndMove = sndPlayer.getMove();
 
         if(fstMove.isBetterThan(sndMove)) {
-            result = result.FstPlayerWin;
+            game.setResult(fstPlayer);
         }
         else if(sndMove.isBetterThan(fstMove)) {
-            result = result.SndPlayerWin;
+            game.setResult(sndPlayer);
+        }
+        /*
+        if(fstMove.isBetterThan(sndMove)) {
+            fstPlayer.setResult(Result.Win);
+            //game.setResult(fstPlayer);
+        }
+        else if(sndMove.isBetterThan(fstMove)) {
+            sndPlayer.setResult(Result.Win);
+            //game.setResult(sndPlayer);
         }
 
-        return result;
-    }
 
-    public Result getResult() {
+
+        Result playerOneResult = fstPlayer.getResult();
+        Result playerTwoResult = sndPlayer.getResult();
+
+        if(playerOneResult.equals(Result.Win)) {
+            return ()
+        }*/
+        Result result = game.getResult();
         return result;
     }
 }

@@ -18,8 +18,8 @@ public class GameController {
     @Autowired
     private GameState gameState;
 
-    @Autowired
-    private GameLogic gameLogic;
+    //@Autowired
+    //private GameLogic gameLogic;
 
 /*
     @RequestMapping(value = "/hello")
@@ -44,8 +44,8 @@ public class GameController {
     @RequestMapping(value = "/api/games/{id}")
     @ResponseBody
     public Result getState(@PathVariable Long id) {
-        //Game game = gameState.getGame(id);
-        return this.gameLogic.getResult();
+        Game game = gameState.getGame(id);
+        return game.getResult();
     }
 
     @RequestMapping(value = "/api/games/{id}/join", method = RequestMethod.POST)
@@ -60,15 +60,22 @@ public class GameController {
     @RequestMapping(value = "/api/games/{id}/move", method = RequestMethod.POST)
     @ResponseBody
     public Player move(@RequestBody Map<String, String> playerParam, @PathVariable Long id) {
+        Game game = gameState.getGame(id);
         String name = playerParam.get("name");
-
         Move move = Move.valueOf(playerParam.get("move"));
 
         Player player = gameState.getPlayer(id, name); //få ut om det är first eller sndplayer
-
         player.setMove(move);
+        game.setRdyPlayers(1);
+        GameLogic gameLogic = new GameLogic(game);
 
-        //ändra gamelogic att ta in move ist?
+        if(game.getRdyPlayers() == 2) {
+            gameLogic.startGame();
+        }
+        return player;
+
+        /*
+
         if(gameLogic.getFstPlayer() == null) {
             gameLogic.setFstPlayer(player);
         }
@@ -83,6 +90,6 @@ public class GameController {
             gameLogic.startGame();
             System.out.println("km hit");
         }
-        return player;
+        return player;*/
     }
 }

@@ -1,10 +1,12 @@
 package joakim.springmvc.rockpaperscissors.model;
 
 import joakim.springmvc.rockpaperscissors.enums.Move;
+import joakim.springmvc.rockpaperscissors.enums.Result;
 
 public class Player {
     private String name;
     private Move move;
+    private Result result;
 
     public Player(String name) {
         this.name = name;
@@ -15,10 +17,15 @@ public class Player {
     }
 
     public void setMove(Move move) {
-        System.out.println("hmmmmmmmakiojasiofj");
-        System.out.println(move);
         this.move = move;
-        System.out.println(move);
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
+    public Result getResult() {
+        return this.result;
     }
 
     public Move getMove() {
