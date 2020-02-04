@@ -19,7 +19,10 @@ public class Game {
     public Game() {
         Long generatedLong = new Random().nextLong();
         this.gameId = generatedLong;
+        this.firstPlayer = null;
+        this.secondPlayer = null;
         this.result = Result.WaitingPlayers;
+        this.players = 0;
     }
 
     public void setFirstPlayer(String name) {
@@ -83,7 +86,9 @@ public class Game {
 
     public void setRdyPlayer(Player player) {
         if(player.getName().equals(firstPlayer.getName())) {
+            System.out.println("borde asfasfasf hit");
             if(!secondPlayer.gotMove()) {
+                System.out.println("bossssssssssssssssst");
                 this.result = Result.WaitingSecondPlayer;
             }
         }

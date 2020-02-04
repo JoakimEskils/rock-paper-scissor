@@ -16,6 +16,7 @@ public class Player {
 
     public Boolean gotMove() {
         if(this.move.equals(Move.NoMove)) {
+            System.out.println("borde komma hit");
             return false;
         }
         return true;

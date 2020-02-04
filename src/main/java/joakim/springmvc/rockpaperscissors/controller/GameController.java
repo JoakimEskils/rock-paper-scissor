@@ -91,7 +91,6 @@ public class GameController {
         game.setRdyPlayer(player);
         //game.setRdyPlayers(1);
         GameLogic gameLogic = new GameLogic(game);
-
         //if(game.getRdyPlayers() == 2) {
         //    gameLogic.startGame();
         //}
