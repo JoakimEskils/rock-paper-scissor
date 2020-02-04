@@ -32,12 +32,9 @@ public class GameController {
     @ResponseBody
     public Long newGame(@RequestBody Map<String, String> firstPlayer) {
     //public Long newGame(@RequestParam("name") String name) {
-
         String name = firstPlayer.get("name");
         Game game = gameState.createGame();
         game.setFirstPlayer(name);
-        System.out.println("hmmmmm");
-        System.out.println(name);
         return game.getGameId();
     }
 
@@ -45,6 +42,7 @@ public class GameController {
     @ResponseBody
     public Result getState(@PathVariable Long id) {
         Game game = gameState.getGame(id);
+        Result result = game.getResult();
         return game.getResult();
     }
 
@@ -53,6 +51,10 @@ public class GameController {
     public Player joinGame(@RequestBody Map<String, String> secondPlayer, @PathVariable Long id) {
         String name = secondPlayer.get("name");
         Game game = gameState.getGame(id);
+        if(game.isFull()) {
+            System.out.println("Sorry, this lobby is full!");
+            return null;
+        }
         game.setSecondPlayer(name);
         return game.getSecondPlayer();
     }
@@ -66,10 +68,14 @@ public class GameController {
 
         Player player = gameState.getPlayer(id, name); //få ut om det är first eller sndplayer
         player.setMove(move);
-        game.setRdyPlayers(1);
+        game.setRdyPlayer(player);
+        //game.setRdyPlayers(1);
         GameLogic gameLogic = new GameLogic(game);
 
-        if(game.getRdyPlayers() == 2) {
+        //if(game.getRdyPlayers() == 2) {
+        //    gameLogic.startGame();
+        //}
+        if(game.getResult().equals(Result.BothReady)) {
             gameLogic.startGame();
         }
         return player;

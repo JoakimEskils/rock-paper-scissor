@@ -19,7 +19,14 @@ public enum Move {
         public boolean isBetterThan(Move move) {
             return (Paper == move);
         }
+    },
+    NoMove {
+        @Override
+        public boolean isBetterThan(Move move) {
+            return false;
+        }
     };
+
 
     public abstract boolean isBetterThan(Move move);
 }

@@ -14,20 +14,22 @@ public class Game {
     private Player secondPlayer;
     private Result result;
     private int rdyPlayers;
+    private int players;
 
     public Game() {
         Long generatedLong = new Random().nextLong();
         this.gameId = generatedLong;
-        this.result = Result.Draw;
+        this.result = Result.WaitingPlayers;
     }
 
     public void setFirstPlayer(String name) {
         this.firstPlayer = new Player(name);
+        this.players += 1;
     }
 
     public void setSecondPlayer(String name) {
         this.secondPlayer = new Player(name);
-        System.out.println(secondPlayer.getName());
+        this.players += 1;
     }
 
     public Long getGameId() {
@@ -41,7 +43,7 @@ public class Game {
     public Player getSecondPlayer() {
         return secondPlayer;
     }
-
+/*
     public void setResult(Player player) { //GÖR DETTA I GAMESTATE
         //player.s
         if(player.equals(firstPlayer)) {
@@ -51,7 +53,10 @@ public class Game {
         else if(player.equals(this.secondPlayer)) {
             this.result = Result.SndPlayerWin;
         }
-    }
+    }*/
+    public void setResult(Result result) { //GÖR DETTA I GAMESTATE
+        this.result = result;
+}
 
     public Player getPlayer(String name) {
         if(name.equals(firstPlayer.getName())) {
@@ -74,5 +79,28 @@ public class Game {
 
     public int getRdyPlayers() {
         return this.rdyPlayers;
+    }
+
+    public void setRdyPlayer(Player player) {
+        if(player.getName().equals(firstPlayer.getName())) {
+            if(!secondPlayer.gotMove()) {
+                this.result = Result.WaitingSecondPlayer;
+            }
+        }
+        else if(player.getName().equals(firstPlayer.getName())) {
+            if(!firstPlayer.gotMove()) {
+                this.result = Result.WaitingFirstPlayer;
+            }
+        }
+        if(firstPlayer.gotMove() && secondPlayer.gotMove()) {
+            this.result = Result.BothReady;
+        }
+    }
+
+    public boolean isFull() {
+        if(this.players == 2) {
+            return true;
+        }
+        return false;
     }
 }

@@ -25,10 +25,13 @@ public class GameLogic {
         Move sndMove = sndPlayer.getMove();
 
         if(fstMove.isBetterThan(sndMove)) {
-            game.setResult(fstPlayer);
+            game.setResult(Result.FstPlayerWin);
         }
         else if(sndMove.isBetterThan(fstMove)) {
-            game.setResult(sndPlayer);
+            game.setResult(Result.SndPlayerWin);
+        }
+        else {
+            game.setResult(Result.Draw);
         }
         /*
         if(fstMove.isBetterThan(sndMove)) {
