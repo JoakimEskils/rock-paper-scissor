@@ -8,27 +8,23 @@ import org.springframework.stereotype.Service;
 
 //@Service
 public class GameLogic {
-    private Player fstPlayer;
-    private Player sndPlayer;
     private Game game;
     //private Result result;
 
     public GameLogic(Game game) {
-        this.fstPlayer = game.getFirstPlayer();
-        this.sndPlayer = game.getSecondPlayer();
         this.game = game;
     }
 
     public Result startGame() {
 
-        Move fstMove = fstPlayer.getMove();
-        Move sndMove = sndPlayer.getMove();
+        Move fstMove = game.getFirstPlayer().getMove();
+        Move sndMove = game.getSecondPlayer().getMove();
 
         if(fstMove.isBetterThan(sndMove)) {
-            game.setResult(Result.FstPlayerWin);
+            game.setResult(Result.FirstPlayerWin);
         }
         else if(sndMove.isBetterThan(fstMove)) {
-            game.setResult(Result.SndPlayerWin);
+            game.setResult(Result.SecondPlayerWin);
         }
         else {
             game.setResult(Result.Draw);

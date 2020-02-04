@@ -4,6 +4,7 @@ import joakim.springmvc.rockpaperscissors.enums.Move;
 import joakim.springmvc.rockpaperscissors.enums.Result;
 import joakim.springmvc.rockpaperscissors.model.Game;
 import joakim.springmvc.rockpaperscissors.model.Player;
+import joakim.springmvc.rockpaperscissors.state.CurrentStatus;
 import joakim.springmvc.rockpaperscissors.state.GameLogic;
 import joakim.springmvc.rockpaperscissors.state.GameState;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class GameController {
 
     @Autowired
     private GameState gameState;
+
+    @Autowired
+    private CurrentStatus currentStatus;
 
     //@Autowired
     //private GameLogic gameLogic;
@@ -38,6 +42,7 @@ public class GameController {
         return game.getGameId();
     }
 
+    /*
     @RequestMapping(value = "/api/games/{id}")
     @ResponseBody
     public Result getState(@PathVariable Long id) {
@@ -45,23 +50,38 @@ public class GameController {
         Result result = game.getResult();
         return game.getResult();
     }
+    */
+    @RequestMapping(value = "/api/games/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String getState(@PathVariable Long id) {
+        Game game = gameState.getGame(id);
+
+        String status = currentStatus.receiveStatus(game);
+        return status;
+    }
+
 
     @RequestMapping(value = "/api/games/{id}/join", method = RequestMethod.POST)
     @ResponseBody
-    public Player joinGame(@RequestBody Map<String, String> secondPlayer, @PathVariable Long id) {
-        String name = secondPlayer.get("name");
+    public void joinGame(@RequestBody Map<String, String> secondPlayer, @PathVariable Long id) {
         Game game = gameState.getGame(id);
+
+        String name = secondPlayer.get("name");
+
         if(game.isFull()) {
             System.out.println("Sorry, this lobby is full!");
-            return null;
+            //return null;
         }
-        game.setSecondPlayer(name);
-        return game.getSecondPlayer();
+        else {
+            game.setSecondPlayer(name);
+        }
+
+        //return game.getSecondPlayer();
     }
 
     @RequestMapping(value = "/api/games/{id}/move", method = RequestMethod.POST)
     @ResponseBody
-    public Player move(@RequestBody Map<String, String> playerParam, @PathVariable Long id) {
+    public void move(@RequestBody Map<String, String> playerParam, @PathVariable Long id) {
         Game game = gameState.getGame(id);
         String name = playerParam.get("name");
         Move move = Move.valueOf(playerParam.get("move"));
@@ -78,7 +98,7 @@ public class GameController {
         if(game.getResult().equals(Result.BothReady)) {
             gameLogic.startGame();
         }
-        return player;
+        //return player;
 
         /*
 
