@@ -1,6 +1,6 @@
 # rock-paper-scissor
 
-Developed with Spring Boot.
+Developed with Java using the framework Spring Boot.
 
 Start game by writing in command line: mvn spring-boot:run\
 Repackage with: mvn clean install spring-boot:repackage
