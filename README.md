@@ -5,7 +5,7 @@ Developed with Java using the framework Spring Boot.
 Start game by writing in command line: mvn spring-boot:run\
 Repackage with: mvn clean install spring-boot:repackage
 
-# Create a game
+## Create a game
 
 Open up the Postman application.\
 Make a POST request to localhost:8080/api/games\
@@ -22,7 +22,7 @@ This will be your game {id}.
 Example of return value:\
 4525303663931966310
 
-# Join a game
+## Join a game
 
 Create another POST request in Postman, target adress:  localhost:8080/api/games/{id}/join\
 In this example, {id} would be replaced with 4525303663931966310.
@@ -39,7 +39,7 @@ Either one of those three strings will be returned:\
 "Name already taken!" -> Player one might have taken your chosen name already.\
 "Sorry, this lobby is full!" -> Two players are already in the game.
 
-# Make a move
+## Make a move
 
 Create another POST request in Postman, target adress:  localhost:8080/api/games/{id}/move\
 In this example, it would map to localhost:8080/api/games/4525303663931966310/move
@@ -57,7 +57,7 @@ A return value will be received in form of a string:\
 "Move added!" -> Your move was added successfully.\
 "Game started!" -> Game starts if both players has entered their moves.
 
-# Check game state
+## Check game state
 
 To check the current status, enter a GET request in postman: localhost:8080/api/games/{id}
 
