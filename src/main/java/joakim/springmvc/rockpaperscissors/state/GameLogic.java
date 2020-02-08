@@ -4,6 +4,9 @@ import joakim.springmvc.rockpaperscissors.enums.Move;
 import joakim.springmvc.rockpaperscissors.enums.Result;
 import joakim.springmvc.rockpaperscissors.model.Game;
 
+/*
+    Maps the output of a started game depending on players moves.
+ */
 public class GameLogic {
     private Game game;
 
@@ -11,21 +14,23 @@ public class GameLogic {
         this.game = game;
     }
 
+    // startGame is only called by GameController if there are two players with set moves.
     public Result startGame() {
-        Move fstMove = game.getFirstPlayer().getMove();
-        Move sndMove = game.getSecondPlayer().getMove();
+        try {
+            Move fstMove = game.getFirstPlayer().getMove();
+            Move sndMove = game.getSecondPlayer().getMove();
 
-        if(fstMove.isBetterThan(sndMove)) {
-            game.setResult(Result.FirstPlayerWin);
-        }
-        else if(sndMove.isBetterThan(fstMove)) {
-            game.setResult(Result.SecondPlayerWin);
-        }
-        else {
-            game.setResult(Result.Draw);
+            if (fstMove.isBetterThan(sndMove)) {
+                game.setResult(Result.FirstPlayerWin);
+            } else if (sndMove.isBetterThan(fstMove)) {
+                game.setResult(Result.SecondPlayerWin);
+            } else {
+                game.setResult(Result.Draw);
+            }
+        } catch (Exception e) {
+            System.out.println("startGame was called, but an error has occurred. Perhaps it was called without players making their moves?");
         }
 
-        Result result = game.getResult();
-        return result;
+        return game.getResult();
     }
 }

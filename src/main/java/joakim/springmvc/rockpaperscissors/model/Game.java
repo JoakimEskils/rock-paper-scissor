@@ -3,6 +3,9 @@ package joakim.springmvc.rockpaperscissors.model;
 import joakim.springmvc.rockpaperscissors.enums.Result;
 import java.util.Random;
 
+/*
+    Game class to control the necessary attributes of a game.
+ */
 public class Game {
     private Long gameId;
     private Player firstPlayer;

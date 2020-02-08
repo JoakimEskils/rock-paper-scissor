@@ -1,12 +1,13 @@
 package joakim.springmvc.rockpaperscissors.model;
 
 import joakim.springmvc.rockpaperscissors.enums.Move;
-import joakim.springmvc.rockpaperscissors.enums.Result;
 
+/*
+    Player class to control the necessary attributes of a player.
+ */
 public class Player {
     private String name;
     private Move move;
-    private Result result;
 
     public Player(String name) {
         this.name = name;

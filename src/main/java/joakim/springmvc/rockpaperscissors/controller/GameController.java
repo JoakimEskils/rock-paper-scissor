@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+/*
+    Maps GET and POST requests to proper logic and methods.
+ */
 @RestController
 public class GameController {
 
@@ -21,6 +24,7 @@ public class GameController {
     @Autowired
     private GameState gameState;
 
+    // Initialize a new game.
     @RequestMapping(value = "/api/games", method = RequestMethod.POST)
     @ResponseBody
     public Long newGame(@RequestBody Map<String, String> firstPlayer) {
@@ -30,6 +34,7 @@ public class GameController {
         return game.getGameId();
     }
 
+    // Receive current status of game.
     @RequestMapping(value = "/api/games/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String getState(@PathVariable Long id) {
@@ -38,6 +43,7 @@ public class GameController {
         return status;
     }
 
+    // Join game, maximum two players allowed.
     @RequestMapping(value = "/api/games/{id}/join", method = RequestMethod.POST)
     @ResponseBody
     public String joinGame(@RequestBody Map<String, String> secondPlayer, @PathVariable Long id) {
@@ -53,6 +59,7 @@ public class GameController {
         }
     }
 
+    // Player makes its move, starts game if both players made their moves.
     @RequestMapping(value = "/api/games/{id}/move", method = RequestMethod.POST)
     @ResponseBody
     public void move(@RequestBody Map<String, String> playerParam, @PathVariable Long id) {

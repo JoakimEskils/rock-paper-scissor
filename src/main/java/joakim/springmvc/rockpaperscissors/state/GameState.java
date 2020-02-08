@@ -4,6 +4,9 @@ import joakim.springmvc.rockpaperscissors.enums.Result;
 import joakim.springmvc.rockpaperscissors.model.Game;
 import org.springframework.stereotype.Service;
 
+/*
+    Continuous running service-class, receives a particular game and returns its current state.
+ */
 @Service
 public class GameState {
 

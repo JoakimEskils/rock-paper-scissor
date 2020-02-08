@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
+/*
+    Keeps track and stores all initialized games.
+ */
 @Service
 public class GameRepository {
     private HashMap<Long, Game> games;

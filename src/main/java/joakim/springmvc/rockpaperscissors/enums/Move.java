@@ -1,5 +1,8 @@
 package joakim.springmvc.rockpaperscissors.enums;
 
+/*
+    Enum with the possible actions in the game.
+ */
 public enum Move {
 
     Rock {
@@ -20,6 +23,7 @@ public enum Move {
             return (Paper == move);
         }
     },
+    // NoMove is the default status when a player joins the game.
     NoMove {
         @Override
         public boolean isBetterThan(Move move) {
