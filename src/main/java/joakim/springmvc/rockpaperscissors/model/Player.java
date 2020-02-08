@@ -3,7 +3,6 @@ package joakim.springmvc.rockpaperscissors.model;
 import joakim.springmvc.rockpaperscissors.enums.Move;
 import joakim.springmvc.rockpaperscissors.enums.Result;
 
-//DÖP OM TILL STATE?
 public class Player {
     private String name;
     private Move move;
@@ -16,7 +15,6 @@ public class Player {
 
     public Boolean gotMove() {
         if(this.move.equals(Move.NoMove)) {
-            System.out.println("borde komma hit");
             return false;
         }
         return true;
@@ -28,14 +26,6 @@ public class Player {
 
     public void setMove(Move move) {
         this.move = move;
-    }
-
-    public void setResult(Result result) {
-        this.result = result;
-    }
-
-    public Result getResult() {
-        return this.result;
     }
 
     public Move getMove() {

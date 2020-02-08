@@ -1,38 +1,27 @@
 package joakim.springmvc.rockpaperscissors.model;
 
 import joakim.springmvc.rockpaperscissors.enums.Result;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Random;
-import java.util.UUID;
-
 
 public class Game {
-
     private Long gameId;
     private Player firstPlayer;
     private Player secondPlayer;
     private Result result;
-    private int rdyPlayers;
-    private int players;
 
     public Game() {
-        Long generatedLong = new Random().nextLong();
-        this.gameId = generatedLong;
+        this.gameId = new Random().nextLong();
         this.firstPlayer = null;
         this.secondPlayer = null;
         this.result = Result.WaitingPlayers;
-        this.players = 0;
     }
 
     public void setFirstPlayer(String name) {
         this.firstPlayer = new Player(name);
-        this.players += 1;
     }
 
     public void setSecondPlayer(String name) {
         this.secondPlayer = new Player(name);
-        this.players += 1;
     }
 
     public Long getGameId() {
@@ -46,18 +35,8 @@ public class Game {
     public Player getSecondPlayer() {
         return secondPlayer;
     }
-/*
-    public void setResult(Player player) { //GÖR DETTA I GAMESTATE
-        //player.s
-        if(player.equals(firstPlayer)) {
-            firstPlayer.setResult(result);
-            this.result = Result.FstPlayerWin;
-        }
-        else if(player.equals(this.secondPlayer)) {
-            this.result = Result.SndPlayerWin;
-        }
-    }*/
-    public void setResult(Result result) { //GÖR DETTA I GAMESTATE
+
+    public void setResult(Result result) {
         this.result = result;
 }
 
@@ -68,31 +47,21 @@ public class Game {
         else if(name.equals(secondPlayer.getName())) {
             return secondPlayer;
         }
-        //ILLEGAL EXPRESSION
-        return null;
+
+        return null; //ILLEGAL EXPRESSION
     }
 
     public Result getResult() {
         return result;
     }
 
-    public void setRdyPlayers(int num) {
-        this.rdyPlayers += num;
-    }
-
-    public int getRdyPlayers() {
-        return this.rdyPlayers;
-    }
-
-    public void setRdyPlayer(Player player) {
+    public void setReadyPlayer(Player player) {
         if(player.getName().equals(firstPlayer.getName())) {
-            System.out.println("borde asfasfasf hit");
             if(!secondPlayer.gotMove()) {
-                System.out.println("bossssssssssssssssst");
                 this.result = Result.WaitingSecondPlayer;
             }
         }
-        else if(player.getName().equals(firstPlayer.getName())) {
+        else if(player.getName().equals(secondPlayer.getName())) {
             if(!firstPlayer.gotMove()) {
                 this.result = Result.WaitingFirstPlayer;
             }
@@ -103,7 +72,7 @@ public class Game {
     }
 
     public boolean isFull() {
-        if(this.players == 2) {
+        if(this.getFirstPlayer() != null && this.getSecondPlayer() != null) {
             return true;
         }
         return false;

@@ -2,37 +2,41 @@ package joakim.springmvc.rockpaperscissors.state;
 
 import joakim.springmvc.rockpaperscissors.enums.Result;
 import joakim.springmvc.rockpaperscissors.model.Game;
-import joakim.springmvc.rockpaperscissors.model.Player;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-
-
-//DÖÖÖÖÖÖP OM TILL REPOSITORY!!!!!!!!!!!!! denna innehåller flera games
 @Service
 public class GameState {
-    private int text;
-    private HashMap<Long, Game> games = new HashMap<Long, Game>();
-    private Result result;
 
-    public GameState() {
-        this.text = 505;
-    }
+    public String receiveStatus(Game game) {
 
-    public Game createGame() {
-        Game game = new Game();
-        Long id = game.getGameId();
-        games.put(id, game);
-        return game;
-    }
+        Result result = game.getResult();
+        String stringValue = "Something has gone wrong..."; //Default value
+        if(game.isFull()) {
+            switch(result) {
+                case Draw:
+                    stringValue = "It's a draw!";
+                    break;
+                case FirstPlayerWin:
+                    stringValue = game.getFirstPlayer().getName() + " won!";
+                    break;
+                case SecondPlayerWin:
+                    stringValue = game.getSecondPlayer().getName() + " won!";
+                    break;
+                case WaitingPlayers:
+                    stringValue = "Waiting for players to make their moves.";
+                    break;
+                case WaitingFirstPlayer:
+                    stringValue = "Waiting for " + game.getFirstPlayer().getName()  + " to make a move.";
+                    break;
+                case WaitingSecondPlayer:
+                    stringValue = "Waiting for " + game.getSecondPlayer().getName() + " to make a move.";
+                    break;
+            }
+        }
+        else {
+            stringValue = "Waiting for other player to connect.";
+        }
 
-    public Game getGame(Long id) {
-        return games.get(id);
-    }
-
-    public Player getPlayer(Long id, String name) {
-        Game game = games.get(id);
-        return game.getPlayer(name);
+        return stringValue;
     }
 }
