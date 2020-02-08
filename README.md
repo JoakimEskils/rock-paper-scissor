@@ -8,8 +8,8 @@ Repackage with: mvn clean install spring-boot:repackage
 # Create a game
 
 Open up the Postman application.\
-Make a post request to localhost:8080/api/games\
-In the post request, send a JSON with your chosen name.
+Make a POST request to localhost:8080/api/games\
+In the POST request, send a JSON with your chosen name.
 
 Example:\
 {\
@@ -24,7 +24,7 @@ Example of return value:\
 
 # Join a game
 
-Create another post request in Postman, target adress:  localhost:8080/api/games/{id}/join\
+Create another POST request in Postman, target adress:  localhost:8080/api/games/{id}/join\
 In this example, {id} would be replaced with 4525303663931966310.
 
 In the post request, include a JSON with a chosen name.
@@ -41,7 +41,7 @@ Either one of those three strings will be returned:\
 
 # Make a move
 
-Create another post request in Postman, target adress:  localhost:8080/api/games/{id}/move\
+Create another POST request in Postman, target adress:  localhost:8080/api/games/{id}/move\
 In this example, it would map to localhost:8080/api/games/4525303663931966310/move
 
 Include name and a move with either Rock, Paper och Scissors in your post request.
@@ -49,7 +49,7 @@ Include name and a move with either Rock, Paper och Scissors in your post reques
 Example:\
 {\
 	"name": "Alice",\
-	"move": "Rock"\n
+	"move": "Rock"\
 }
 
 A return value will be received in form of a string:\
@@ -57,6 +57,17 @@ A return value will be received in form of a string:\
 "Move added!" -> Your move was added successfully.\
 "Game started!" -> Game starts if both players has entered their moves.
 
+# Check game state
+
+To check the current status, enter a GET request in postman: localhost:8080/api/games/{id}\
+
+This will return a string explaining the current status of the game.\
+Nothing has to be added along the request, the winner will be mentioned with his or her name.\
+
+Example:\
+"Bob won!"
+
+The status is always available to you once a game has been initialized. 
 
 
 
