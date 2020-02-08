@@ -59,10 +59,10 @@ A return value will be received in form of a string:\
 
 # Check game state
 
-To check the current status, enter a GET request in postman: localhost:8080/api/games/{id}\
+To check the current status, enter a GET request in postman: localhost:8080/api/games/{id}
 
 This will return a string explaining the current status of the game.\
-Nothing has to be added along the request, the winner will be mentioned with his or her name.\
+Nothing has to be added along the request, the winner will be mentioned with his or her name.
 
 Example:\
 "Bob won!"
