@@ -53,6 +53,9 @@ public class GameController {
         if(game.isFull()) {
             return("Sorry, this lobby is full!");
         }
+        else if(game.getFirstPlayer().getName().equals(name)) {
+            return("Name already taken!");
+        }
         else {
             game.setSecondPlayer(name);
             return("Successfully joined the game!");
@@ -62,18 +65,24 @@ public class GameController {
     // Player makes its move, starts game if both players made their moves.
     @RequestMapping(value = "/api/games/{id}/move", method = RequestMethod.POST)
     @ResponseBody
-    public void move(@RequestBody Map<String, String> playerParam, @PathVariable Long id) {
-        Game game = gameRepository.getGame(id);
-        String name = playerParam.get("name");
-        Move move = Move.valueOf(playerParam.get("move"));
+    public String move(@RequestBody Map<String, String> playerParam, @PathVariable Long id) {
+        try {
+            Game game = gameRepository.getGame(id);
+            String name = playerParam.get("name");
+            Move move = Move.valueOf(playerParam.get("move"));
 
-        Player player = gameRepository.getPlayer(id, name);
-        player.setMove(move);
-        game.setReadyPlayer(player);
-        GameLogic gameLogic = new GameLogic(game);
+            Player player = gameRepository.getPlayer(id, name);
+            player.setMove(move);
+            game.setReadyPlayer(player);
+            GameLogic gameLogic = new GameLogic(game);
 
-        if(game.getResult().equals(Result.BothReady)) {
-            gameLogic.startGame();
+            if (game.getResult().equals(Result.BothReady)) {
+                gameLogic.startGame();
+                return("Game started!");
+            }
+        } catch(IllegalArgumentException e) {
+            return("Not a valid move!");
         }
+        return("Move added!");
     }
 }
