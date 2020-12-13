@@ -69,5 +69,8 @@ Example:\
 
 The status is always available to you once a game has been initialized. 
 
+## Future improvements
+
+Write tests & Remove unnecessary comments
 
 
